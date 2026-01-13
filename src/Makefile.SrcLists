@@ -1,0 +1,26 @@
+
+ifndef PREFIX_BASEDIR_SRC
+PREFIX_BASEDIR_SRC = .
+endif
+
+LIB_OBJS =			\
+		$(PREFIX_BASEDIR_SRC)/EZMsgQue.o					\
+		$(PREFIX_BASEDIR_SRC)/EZPoolAllocator.o		\
+		$(PREFIX_BASEDIR_SRC)/EZThread.o					\
+		$(PREFIX_BASEDIR_SRC)/EZTimer.o						\
+		$(PREFIX_BASEDIR_SRC)/api_ezthread.o			\
+		$(PREFIX_BASEDIR_SRC)/api_thread.o				\
+		$(PREFIX_BASEDIR_SRC)/EZSemaphore.o				\
+		$(PREFIX_BASEDIR_SRC)/EZMutex.o						\
+		$(PREFIX_BASEDIR_SRC)/EZLock.o
+
+LIB_SRCS =      \
+		$(PREFIX_BASEDIR_SRC)/EZMsgQue.cpp				\
+		$(PREFIX_BASEDIR_SRC)/EZPoolAllocator.cpp	\
+		$(PREFIX_BASEDIR_SRC)/EZThread.cpp				\
+		$(PREFIX_BASEDIR_SRC)/EZTimer.cpp					\
+		$(PREFIX_BASEDIR_SRC)/api_ezthread.c			\
+		$(PREFIX_BASEDIR_SRC)/api_thread.c				\
+		$(PREFIX_BASEDIR_SRC)/EZSemaphore.cpp			\
+		$(PREFIX_BASEDIR_SRC)/EZMutex.cpp					\
+		$(PREFIX_BASEDIR_SRC)/EZLock.cpp

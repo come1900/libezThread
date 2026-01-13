@@ -1,0 +1,33 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_libezThread", "test_libezThread.vcxproj", "{25AF2DD2-D396-4668-B188-488C33B8E620}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5AEBEEC4-42B2-1E31-03FB-0FEB5A4D09EC} = {5AEBEEC4-42B2-1E31-03FB-0FEB5A4D09EC}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libezThread", "libezThread.vcxproj", "{5AEBEEC4-42B2-1E31-03FB-0FEB5A4D09EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		dummy|Win32 = dummy|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{25AF2DD2-D396-4668-B188-488C33B8E620}.Debug|Win32.ActiveCfg = Debug|Win32
+		{25AF2DD2-D396-4668-B188-488C33B8E620}.Debug|Win32.Build.0 = Debug|Win32
+		{25AF2DD2-D396-4668-B188-488C33B8E620}.dummy|Win32.ActiveCfg = Debug|Win32
+		{25AF2DD2-D396-4668-B188-488C33B8E620}.dummy|Win32.Build.0 = Debug|Win32
+		{25AF2DD2-D396-4668-B188-488C33B8E620}.Release|Win32.ActiveCfg = Release|Win32
+		{25AF2DD2-D396-4668-B188-488C33B8E620}.Release|Win32.Build.0 = Release|Win32
+		{5AEBEEC4-42B2-1E31-03FB-0FEB5A4D09EC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5AEBEEC4-42B2-1E31-03FB-0FEB5A4D09EC}.Debug|Win32.Build.0 = Debug|Win32
+		{5AEBEEC4-42B2-1E31-03FB-0FEB5A4D09EC}.dummy|Win32.ActiveCfg = Debug|Win32
+		{5AEBEEC4-42B2-1E31-03FB-0FEB5A4D09EC}.dummy|Win32.Build.0 = Debug|Win32
+		{5AEBEEC4-42B2-1E31-03FB-0FEB5A4D09EC}.Release|Win32.ActiveCfg = Release|Win32
+		{5AEBEEC4-42B2-1E31-03FB-0FEB5A4D09EC}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
