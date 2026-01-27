@@ -7,12 +7,12 @@
 **                            All Rights Reserved
 **
 **	File		: Packet.cpp
-**	Description	: ÊµÏÖÊı¾İ»º³åµÄ»ï°éÄ£Ê½¹ÜÀí£¬½«Á¬ĞøµÄÄÚ´æ¿é»®·Ö³É´óĞ¡ÏàÍ¬µÄÒ³Ãæ£¬ 
-				  ¶ÔÍâÌá¹©Ìá¹©°üº¬Á¬Ğøn¸öÒ³Ãæ»º³åµÄ°ü£¬°üÊ×µØÖ·°´Ò³Ãæ´óĞ¡¶ÔÆë¡£ ²¢Ìá¹©
-				  ÁËC³ÌĞòµ÷ÓÃµÄ½Ó¿Ú¡£
+**	Description	: å®ç°æ•°æ®ç¼“å†²çš„ä¼™ä¼´æ¨¡å¼ç®¡ç†ï¼Œå°†è¿ç»­çš„å†…å­˜å—åˆ’åˆ†æˆå¤§å°ç›¸åŒçš„é¡µé¢ï¼Œ 
+				  å¯¹å¤–æä¾›æä¾›åŒ…å«è¿ç»­nä¸ªé¡µé¢ç¼“å†²çš„åŒ…ï¼ŒåŒ…é¦–åœ°å€æŒ‰é¡µé¢å¤§å°å¯¹é½ã€‚ å¹¶æä¾›
+				  äº†Cç¨‹åºè°ƒç”¨çš„æ¥å£ã€‚
 **
 **	Modify		: 2005/3/5		WHF		Create the file
-                  2005/6/11     WHF     »º³åĞŞ¸ÄÎª4M
+                  2005/6/11     WHF     ç¼“å†²ä¿®æ”¹ä¸º4M
 **	********************************************************************************
 */
 
@@ -33,23 +33,23 @@
 
 #define FRAME_MAX_NUM (8)
 
-//! Ö¡¶¨Î»ĞÅÏ¢
+//! å¸§å®šä½ä¿¡æ¯
 typedef struct
 {
-	BYTE FrameType;					/*!< Ö¡ÀàĞÍ */
-	BYTE FrameFlag;					/*!< Ö¡Í·Î²µÄ±êÊ¶ */
-	WORD FramePos;					/*!< Ö¡µÄÆğÊ¼Î»ÖÃ */
-	DWORD FrameLength;				/*!< Ö¡µÄ³¤¶È£¬¿ÉÄÜ¿ç¿é */
-	WORD DataLength;				/*!< Ö¡ÔÚ±¾¿éÖĞµÄ³¤¶È */
-	BYTE Reserve[2];				/*!< ±£Áô */
+	BYTE FrameType;					/*!< å¸§ç±»å‹ */
+	BYTE FrameFlag;					/*!< å¸§å¤´å°¾çš„æ ‡è¯† */
+	WORD FramePos;					/*!< å¸§çš„èµ·å§‹ä½ç½® */
+	DWORD FrameLength;				/*!< å¸§çš„é•¿åº¦ï¼Œå¯èƒ½è·¨å— */
+	WORD DataLength;				/*!< å¸§åœ¨æœ¬å—ä¸­çš„é•¿åº¦ */
+	BYTE Reserve[2];				/*!< ä¿ç•™ */
 }FRAMEINFO;
 
-//! °üÍ·µÄĞÅÏ¢¶¨Òå
+//! åŒ…å¤´çš„ä¿¡æ¯å®šä¹‰
 typedef struct
 {
-	FRAMEINFO FrameInfo[FRAME_MAX_NUM];  /*!< ËùÓĞÖ¡ĞÅÏ¢ */
-	BYTE			PacketInfo;								 /*!< ´ò°üĞÅÏ¢ */
-	BYTE			Reserve[7];								 /*!< ±£Áô */
+	FRAMEINFO FrameInfo[FRAME_MAX_NUM];  /*!< æ‰€æœ‰å¸§ä¿¡æ¯ */
+	BYTE			PacketInfo;								 /*!< æ‰“åŒ…ä¿¡æ¯ */
+	BYTE			Reserve[7];								 /*!< ä¿ç•™ */
 }PKT_HEAD_INFO;
 
 #if 0
@@ -80,26 +80,26 @@ void printFrameInfo(CPacket *pPkt)
 #endif
 
 /*!
-	\b Description		:	²éÕÒ°üµÄIÖ¡\n
+	\b Description		:	æŸ¥æ‰¾åŒ…çš„Iå¸§\n
 	\b Argument			:	CPacket *pkt, DWORD *pos
-	\param	pkt			:	Óû²éÕÒ°üµÄÖ¸Õë
-	\param  pos			:	ÕÒµ½µÄIÖ¡ÔÚ°üÖĞµÄÎ»ÖÃ(µÚÒ»¸ö)
-	\param  packtype	:	dspÍ¨ÖªµÄ´ò°üÀàĞÍ zhongyj add 2006-11-07
-	\return	ÕÒµ½IÖ¡µÄ¸öÊı£¬0ÎªÎ´ÕÒµ½; -1:Ö¸Õë³ö´í			
+	\param	pkt			:	æ¬²æŸ¥æ‰¾åŒ…çš„æŒ‡é’ˆ
+	\param  pos			:	æ‰¾åˆ°çš„Iå¸§åœ¨åŒ…ä¸­çš„ä½ç½®(ç¬¬ä¸€ä¸ª)
+	\param  packtype	:	dspé€šçŸ¥çš„æ‰“åŒ…ç±»å‹ zhongyj add 2006-11-07
+	\return	æ‰¾åˆ°Iå¸§çš„ä¸ªæ•°ï¼Œ0ä¸ºæœªæ‰¾åˆ°; -1:æŒ‡é’ˆå‡ºé”™			
 
 	\b Revisions		:	
 		- 2005-10-24		yuansy		Create
-		- 2006-04-20		yuansy		ĞŞ¸Ä·µ»ØÖµ
-		- 2006-12-21		yuansy		ĞŞ¸Ä°ü³¤¶ÈÒıÆğµÄ²éÕÒÖ¡µÄ±ä»¯
+		- 2006-04-20		yuansy		ä¿®æ”¹è¿”å›å€¼
+		- 2006-12-21		yuansy		ä¿®æ”¹åŒ…é•¿åº¦å¼•èµ·çš„æŸ¥æ‰¾å¸§çš„å˜åŒ–
 */
 #if 0
 int LocateIFrame(CPacket *pkt, DWORD *pos, BYTE *packtype)
 {
-	//ÊÓĞÂÔö¼ÓÁË´ò°üÊ±²éÕÒIÖ¡
+	//è§†æ–°å¢åŠ äº†æ‰“åŒ…æ—¶æŸ¥æ‰¾Iå¸§
 
-	/*      Ö¡¶¨Î»ĞÅÏ¢
-	ËµÃ÷: Ö¡¶¨Î»ĞÅÏ¢Ò»¹²16×Ö½Ú, Ã¿4¸ö×Ö½ÚÎªÒ»¸ö¼ÇÂ¼,Ò»¹²4¸ö¼ÇÂ¼
-	Ã¿¸ö¼ÇÂ¼×é³ÉÈçÏÂ:
+	/*      å¸§å®šä½ä¿¡æ¯
+	è¯´æ˜: å¸§å®šä½ä¿¡æ¯ä¸€å…±16å­—èŠ‚, æ¯4ä¸ªå­—èŠ‚ä¸ºä¸€ä¸ªè®°å½•,ä¸€å…±4ä¸ªè®°å½•
+	æ¯ä¸ªè®°å½•ç»„æˆå¦‚ä¸‹:
 
 	MSB								     LSB
 	---------------------------------------------------------------------------------
@@ -108,33 +108,33 @@ int LocateIFrame(CPacket *pkt, DWORD *pos, BYTE *packtype)
 	|Flag   |     Location               |           Length                        
 
 	Flag  		    00	                    01 						10
-	Location       ÎŞĞ§                IÖ¡ÔÚ±¾¿éÖĞµÄ¶¨Î»            ÎŞĞ§
-	Length         ÎŞĞ§                IÖ¡³¤¶È                      Ê£ÓàIÖ¡µÄ¼ÆÊı
+	Location       æ— æ•ˆ                Iå¸§åœ¨æœ¬å—ä¸­çš„å®šä½            æ— æ•ˆ
+	Length         æ— æ•ˆ                Iå¸§é•¿åº¦                      å‰©ä½™Iå¸§çš„è®¡æ•°
 
-	×¢ÊÍ: µ±±¾¿éÖĞIÖ¡ÊıÄ¿´óÓÚ4Ê±, Ç°3¸ö¶¨Î»ĞÅÏ¢Ö¸Ê¾Ç°3¸öIÖ¡µÄ¶¨Î», 
-	×îºóÒ»¸ö¶¨Î»ĞÅÏ¢Ö¸Ê¾ÎŞ·¨ÏêÏ¸¶¨Î»µÄIÖ¡µÄÊıÄ¿.
+	æ³¨é‡Š: å½“æœ¬å—ä¸­Iå¸§æ•°ç›®å¤§äº4æ—¶, å‰3ä¸ªå®šä½ä¿¡æ¯æŒ‡ç¤ºå‰3ä¸ªIå¸§çš„å®šä½, 
+	æœ€åä¸€ä¸ªå®šä½ä¿¡æ¯æŒ‡ç¤ºæ— æ³•è¯¦ç»†å®šä½çš„Iå¸§çš„æ•°ç›®.
 	*/
 
 	/*
-	²»¶¨³¤µÄÁ÷Ä£Ê½,Ã¿´Î×î¶à´«Êä8K×Ö½Ú, Ò²¿ÉÒÔÉÙÓÚ8K×Ö½Ú
-	Ã¿´Î×î¶à´«Êä8Ö¡(ÊÓÆµÖ¡ºÍÒôÆµÖ¡), Ö¡Î²²¿»òÕßÖĞ¼äÊı¾İ²»°üº¬Ö¡Í·µÄ²»Ëã.
-	Ã¿Âú8Ö¡±ØĞë·¢Æğ´«Êä(¼´Ê¹²»Âú8KÊı¾İ)
-	Ã¿Ö¡¶¼ÓĞÖ¡¶¨Î»ĞÅÏ¢(ÕâÖÖÁ÷Ä£Ê½¼´¿ÉÈÏÎªÊÇÖ¡Ä£Ê½)
-	Ã¿¸öÖ¡¶¨Î»ĞÅÏ¢8¸ö×Ö½Ú
-	Ã¿8KÊı¾İÓĞ8¸öÖ¡¶¨Î»ĞÅÏ¢
+	ä¸å®šé•¿çš„æµæ¨¡å¼,æ¯æ¬¡æœ€å¤šä¼ è¾“8Kå­—èŠ‚, ä¹Ÿå¯ä»¥å°‘äº8Kå­—èŠ‚
+	æ¯æ¬¡æœ€å¤šä¼ è¾“8å¸§(è§†é¢‘å¸§å’ŒéŸ³é¢‘å¸§), å¸§å°¾éƒ¨æˆ–è€…ä¸­é—´æ•°æ®ä¸åŒ…å«å¸§å¤´çš„ä¸ç®—.
+	æ¯æ»¡8å¸§å¿…é¡»å‘èµ·ä¼ è¾“(å³ä½¿ä¸æ»¡8Kæ•°æ®)
+	æ¯å¸§éƒ½æœ‰å¸§å®šä½ä¿¡æ¯(è¿™ç§æµæ¨¡å¼å³å¯è®¤ä¸ºæ˜¯å¸§æ¨¡å¼)
+	æ¯ä¸ªå¸§å®šä½ä¿¡æ¯8ä¸ªå­—èŠ‚
+	æ¯8Kæ•°æ®æœ‰8ä¸ªå¸§å®šä½ä¿¡æ¯
 
-	8Î»									8Î»									16Î»					32Î»							16Î»				16Î»
-	Ö¡ÀàĞÍ±êÖ¾					Í·Î²±êÖ¾							ÆğÊ¼Î»ÖÃ						³¤¶È							¶Î³¤¶È			¡¡¡¡±£Áô
-	0xFF  ÎŞÊı¾İ				0  ·ÇÍ·Î²Êı¾İ					Ö¡ÔÚ±¾¿éÖĞÆğÊ¼Î»ÖÃ					Ö¡ÕæÕıµÄ³¤¶È, ¿ÉÄÜ¿ç¿é			Ö¡ÔÚ±¾¿éÖĞµÄ³¤¶È
-	0     PÖ¡					1  °üº¬Ö¡Í·
-	1     I Ö¡					2  °üº¬Ö¡Î²
-	2     BÖ¡					3  °üº¬Ö¡Í·ºÍÖ¡Î²
-	3     ÒôÆµÖ¡				
-	4     ÆäËûÖ¡
+	8ä½									8ä½									16ä½					32ä½							16ä½				16ä½
+	å¸§ç±»å‹æ ‡å¿—					å¤´å°¾æ ‡å¿—							èµ·å§‹ä½ç½®						é•¿åº¦							æ®µé•¿åº¦			ã€€ã€€ä¿ç•™
+	0xFF  æ— æ•°æ®				0  éå¤´å°¾æ•°æ®					å¸§åœ¨æœ¬å—ä¸­èµ·å§‹ä½ç½®					å¸§çœŸæ­£çš„é•¿åº¦, å¯èƒ½è·¨å—			å¸§åœ¨æœ¬å—ä¸­çš„é•¿åº¦
+	0     På¸§					1  åŒ…å«å¸§å¤´
+	1     I å¸§					2  åŒ…å«å¸§å°¾
+	2     Bå¸§					3  åŒ…å«å¸§å¤´å’Œå¸§å°¾
+	3     éŸ³é¢‘å¸§				
+	4     å…¶ä»–å¸§
 
-	½ô½Ó×ÅÒ»¸ö×Ö½Ú±íÊ¾±êÖ¾Î»¡£
-	ÔÚÖ÷ÂëÁ÷µÄÊı¾İÏÂ£¬£±±íÊ¾ÌáÊ¾Ó¦ÓÃ³ÌĞò´ò°ü£¬£°±íÊ¾²»ĞèÒª´ò°ü¡£
-	Èç¹ûÊÇ×¥Í¼µÄÇé¿öÏÂ£¬ 0±íÊ¾Êı¾İÎ´Íê£¬1±íÊ¾Í¼Æ¬Êı¾İµÄ¿ªÊ¼£¬£²±íÊ¾Êı¾İµÄ½áÊø, 3±íÊ¾ÔÚ½ö°üº¬ÔÚÒ»¸öÊı¾İ¿éÖĞ£¬Ò²¾ÍÊÇËµÔÚ¿ªÊ¼µÄÊ±ºòÍ¬Ê±½áÊø¡£ĞèÒªËµÃ÷µÄÊÇ£¬Á½ÕÅÍ¼Æ¬Ó¦¸Ã·ÅÔÚ²»Í¬µÄÊı¾İ°üÀï£¬¼´Ê¹Ç°Ò»ÕÅÍ¼Æ¬Ö»Õ¼ÁËÊı¾İ°üµÄºÜĞ¡Ò»²¿·Ö¡£
+	ç´§æ¥ç€ä¸€ä¸ªå­—èŠ‚è¡¨ç¤ºæ ‡å¿—ä½ã€‚
+	åœ¨ä¸»ç æµçš„æ•°æ®ä¸‹ï¼Œï¼‘è¡¨ç¤ºæç¤ºåº”ç”¨ç¨‹åºæ‰“åŒ…ï¼Œï¼è¡¨ç¤ºä¸éœ€è¦æ‰“åŒ…ã€‚
+	å¦‚æœæ˜¯æŠ“å›¾çš„æƒ…å†µä¸‹ï¼Œ 0è¡¨ç¤ºæ•°æ®æœªå®Œï¼Œ1è¡¨ç¤ºå›¾ç‰‡æ•°æ®çš„å¼€å§‹ï¼Œï¼’è¡¨ç¤ºæ•°æ®çš„ç»“æŸ, 3è¡¨ç¤ºåœ¨ä»…åŒ…å«åœ¨ä¸€ä¸ªæ•°æ®å—ä¸­ï¼Œä¹Ÿå°±æ˜¯è¯´åœ¨å¼€å§‹çš„æ—¶å€™åŒæ—¶ç»“æŸã€‚éœ€è¦è¯´æ˜çš„æ˜¯ï¼Œä¸¤å¼ å›¾ç‰‡åº”è¯¥æ”¾åœ¨ä¸åŒçš„æ•°æ®åŒ…é‡Œï¼Œå³ä½¿å‰ä¸€å¼ å›¾ç‰‡åªå äº†æ•°æ®åŒ…çš„å¾ˆå°ä¸€éƒ¨åˆ†ã€‚
 
 	*/
 
@@ -148,7 +148,7 @@ int LocateIFrame(CPacket *pkt, DWORD *pos, BYTE *packtype)
 	}
 #if (!defined(DVR_HB)) && (!defined(WIN32)) && !defined(DVR_NB)
 	//printFrameInfo(pkt);
-	PKT_HEAD_INFO	*pkthead = (PKT_HEAD_INFO *)(pkt->GetHeader()); //×¢ÒâÓÉÓÚÏÂÃæÄÚ´æÒÑ¶ÔÆë
+	PKT_HEAD_INFO	*pkthead = (PKT_HEAD_INFO *)(pkt->GetHeader()); //æ³¨æ„ç”±äºä¸‹é¢å†…å­˜å·²å¯¹é½
 	
 	for (int i = 0; i < FRAME_MAX_NUM; i++)
 	{
@@ -189,7 +189,7 @@ int LocateIFrame(CPacket *pPkt, DHTIME *pDHTIME)
 	if (LocateIFrame(pPkt, &dwIFramePos, &type))
 	{
 		BYTE *pFrameInfo = pPkt->GetBuffer() + dwIFramePos;
-		BYTE *pIFameTime = pFrameInfo + 8;//Õâ¶ùÔİĞ´ËÀ
+		BYTE *pIFameTime = pFrameInfo + 8;//è¿™å„¿æš‚å†™æ­»
 		memcpy((void *)pDHTIME, pIFameTime, sizeof(DHTIME));
 		return 0;
 	}
@@ -235,7 +235,7 @@ DWORD CPacket::PutBuffer(void * pdat, DWORD dwLength)
 	CEZLock guard(m_Mutex);
 
 	left = m_Size - m_Length;
-	if (left < dwLength) {		//°üÈİÁ¿²»×ã
+	if (left < dwLength) {		//åŒ…å®¹é‡ä¸è¶³
 		dwLength = left;
 	}
 	memcpy(m_pBuffer, pdat, dwLength);
@@ -304,7 +304,7 @@ DWORD CPacket::Release(int iId)
 	--m_RefCount;
 
 	DWORD count = m_RefCount;
-	m_Mutex.Unlock();//±ØĞëÔÚ»ØÊÕ°üÖ®Ç°½âËø£¬·ñÔòÒıÆğÑÏÖØ´íÎó
+	m_Mutex.Unlock();//å¿…é¡»åœ¨å›æ”¶åŒ…ä¹‹å‰è§£é”ï¼Œå¦åˆ™å¼•èµ·ä¸¥é‡é”™è¯¯
 
 	if (count == 0) {
 		g_PacketManager.PutPacket(this);
@@ -363,8 +363,8 @@ CPacketManager::CPacketManager()
 	m_pFreeList = NULL;
 	 m_nTypes = 0;
 	// SystemGetCaps(&syscaps);
-	/*if (syscaps.MemoryLeft > 4096)//Ê£ÓàÄÚ´æ´óÓÚ4M
-	{//DVRÓ¦ÓÃ³ÌĞò½«°ÑÊ£ÓàµÄÄÚ´æ¼õÈ¥4M£¬×÷Îª»º³åÊ¹ÓÃ£¬×î´ó32M
+	/*if (syscaps.MemoryLeft > 4096)//å‰©ä½™å†…å­˜å¤§äº4M
+	{//DVRåº”ç”¨ç¨‹åºå°†æŠŠå‰©ä½™çš„å†…å­˜å‡å»4Mï¼Œä½œä¸ºç¼“å†²ä½¿ç”¨ï¼Œæœ€å¤§32M
 		m_nPages = MIN(syscaps.MemoryLeft - 4096, 32 * 1024);
 	}
 	else
@@ -381,7 +381,7 @@ CPacketManager::CPacketManager()
 		trace("CPacketManager::CPacketManager() new buffer failed!!!!\n");
 		return ;
 	}
-	m_pBuffer = (BYTE *)(((unsigned long)m_pOriginBuffer + PKT_PAGE_SIZE) & ~(PKT_PAGE_SIZE - 1));//°´Ò³Ãæ´óĞ¡¶ÔÆë
+	m_pBuffer = (BYTE *)(((unsigned long)m_pOriginBuffer + PKT_PAGE_SIZE) & ~(PKT_PAGE_SIZE - 1));//æŒ‰é¡µé¢å¤§å°å¯¹é½
 	
 	 
 	for(m_nTypes = 0, size = m_nPages; ; m_nTypes++)
@@ -391,7 +391,7 @@ CPacketManager::CPacketManager()
 			break;
 		}
 
-		// È¡Å¼Êı£¬ÎªÁË½ÚµãºÏ²¢·½±ã
+		// å–å¶æ•°ï¼Œä¸ºäº†èŠ‚ç‚¹åˆå¹¶æ–¹ä¾¿
 		size = ((size + 1 ) & 0xfffffffe);
 
 		m_PBAs[m_nTypes].pArray = new PBN[size];
@@ -400,14 +400,14 @@ CPacketManager::CPacketManager()
 			trace("CPacketManager::CPacketManager() new nodes failed!!!!\n");
 		}
 
-		// ËùÓĞ½Úµã±êÖ¾Çå¿Õ
+		// æ‰€æœ‰èŠ‚ç‚¹æ ‡å¿—æ¸…ç©º
 		for(i = 0; i < size; i++)
 		{
 			m_PBAs[m_nTypes].pArray[i].pNext = NULL;
 			m_PBAs[m_nTypes].pArray[i].nIndex = i;
 		}
 
-		// ³öÊ¼»¯¿ÕÏĞ½ÚµãÁ´±í
+		// å‡ºå§‹åŒ–ç©ºé—²èŠ‚ç‚¹é“¾è¡¨
 		if (m_nPages & BITMSK(m_nTypes))
 		{
 			pNode = &m_PBAs[m_nTypes].pArray[m_nPages / (1 << m_nTypes) - 1];
@@ -452,13 +452,13 @@ CPacket* CPacketManager::AllocPacket()
 		CPacket *q = new CPacket[NALL];
 		
 		// fprintf(stderr, "==>CPacketManager: allocate buffer:0x%08X size:%ld\n", (int)q, NALL * sizeof(CPacket));
-		/* Á´½Ó×ÔÓÉ¶ÔÏó */
+		/* é“¾æ¥è‡ªç”±å¯¹è±¡ */
 		for(p = m_pFreeList = &q[NALL -1]; q<p; p--) 
 		{
 			p->m_pNext = p - 1;
 		}
 		
-		(p + 1)->m_pNext = NULL; // ×îºóÒ»¸ö×ÔÓÉ¶ÔÏóµÄºóĞøÎª¿Õ
+		(p + 1)->m_pNext = NULL; // æœ€åä¸€ä¸ªè‡ªç”±å¯¹è±¡çš„åç»­ä¸ºç©º
 	}
 	
 	return p;
@@ -492,7 +492,7 @@ CPacket * CPacketManager::GetPacket(DWORD dwBytes /* = 0 */)
 
 	pPacket->Init();
 
-	// Ã»ÓĞ»º³å£¬Ö»ÓĞ°üÍ·µÄ°ü
+	// æ²¡æœ‰ç¼“å†²ï¼Œåªæœ‰åŒ…å¤´çš„åŒ…
 	if(dwBytes == 0)
 	{
 		pPacket->m_Size = 0;
@@ -500,16 +500,16 @@ CPacket * CPacketManager::GetPacket(DWORD dwBytes /* = 0 */)
 		return pPacket;
 	}
 
-	// ¸ù¾İ»º³å´óĞ¡¼ÆËã³ö½Úµã¼¶±ğ
+	// æ ¹æ®ç¼“å†²å¤§å°è®¡ç®—å‡ºèŠ‚ç‚¹çº§åˆ«
 	pages = (dwBytes + PKT_PAGE_SIZE - 1) / PKT_PAGE_SIZE;
 	type = log2i(pages);
 	if((1u << type) != (unsigned int)pages)
 	{
 		type++;
 	}
-	pages = 1 << type;//Ç¿ÖÆÒ³ÃæÊıÎª2Ãİ´Î£¬Ò²¾ÍÊÇÆÁ±Î°üÉêÇëÊ±´ó°üĞ¡°ü»¥²¹²ßÂÔ¡£ WHF 2007-2-28
+	pages = 1 << type;//å¼ºåˆ¶é¡µé¢æ•°ä¸º2å¹‚æ¬¡ï¼Œä¹Ÿå°±æ˜¯å±è”½åŒ…ç”³è¯·æ—¶å¤§åŒ…å°åŒ…äº’è¡¥ç­–ç•¥ã€‚ WHF 2007-2-28
 
-	// ²éÕÒ×îĞ¡µÄ¿ÕÏĞ½Úµã
+	// æŸ¥æ‰¾æœ€å°çš„ç©ºé—²èŠ‚ç‚¹
 	for(i = type; i < m_nTypes; i++)
 	{
 		if(m_PBAs[i].pHeader)
@@ -524,22 +524,22 @@ CPacket * CPacketManager::GetPacket(DWORD dwBytes /* = 0 */)
 		return NULL;
 	}
 
-	// È¡³ö×îĞ¡µÄ¿ÕÏĞ½Úµã
+	// å–å‡ºæœ€å°çš„ç©ºé—²èŠ‚ç‚¹
 	index = m_PBAs[i].pHeader->nIndex;
 	RemoveFree(m_PBAs[i].pHeader, &m_PBAs[i].pArray[index]);
 
-	// Ìî³ä°üÊı¾İ³ÉÔ±
+	// å¡«å……åŒ…æ•°æ®æˆå‘˜
 	pPacket->m_Size = pages * PKT_PAGE_SIZE;
 	pPacket->m_pBuffer = m_pBuffer + (index << i) * PKT_PAGE_SIZE;
 
-	//ÇĞ·Ö´ó¹æ¸ñµÄ½Úµã
+	//åˆ‡åˆ†å¤§è§„æ ¼çš„èŠ‚ç‚¹
 	for(i--; i >= type; i--)
 	{
 		index *= 2;
 		InsertFree(m_PBAs[i].pHeader, &m_PBAs[i].pArray[index + 1]);
 	}
 
-	// ·ÖÎö³ö¶àÓàµÄ¿Õ¼ä°üº¬µÄ¸üĞ¡¹æ¸ñ¿ÕÏĞ½Úµã£¬ ±ÈÈçÉêÇë11¸öÒ³ÃæÊ±£¬ Êµ¼ÊÈ¡µ½µÄÊÇ16¸öÒ³Ãæ£¬ »¹¶à³ö5 = 4 + 1¸öÒ³Ãæ
+	// åˆ†æå‡ºå¤šä½™çš„ç©ºé—´åŒ…å«çš„æ›´å°è§„æ ¼ç©ºé—²èŠ‚ç‚¹ï¼Œ æ¯”å¦‚ç”³è¯·11ä¸ªé¡µé¢æ—¶ï¼Œ å®é™…å–åˆ°çš„æ˜¯16ä¸ªé¡µé¢ï¼Œ è¿˜å¤šå‡º5 = 4 + 1ä¸ªé¡µé¢
 	if((unsigned int)pages != (1u << type))
 	{
 		for(; i >= 0; i--)
@@ -573,7 +573,7 @@ void CPacketManager::PutPacket(CPacket *pPacket)
 	int type;
 	int pages;
 	int i;
-	int merged = 0; // 0-Ã»ÓĞºÏ²¢ 1-ÕıÔÚºÏ²¢ 2-ºÏ²¢Íê³É
+	int merged = 0; // 0-æ²¡æœ‰åˆå¹¶ 1-æ­£åœ¨åˆå¹¶ 2-åˆå¹¶å®Œæˆ
 
 	if(!pPacket)
 	{
@@ -585,7 +585,7 @@ void CPacketManager::PutPacket(CPacket *pPacket)
 		return;
 	}
 
-	// È¡³ö°üÊı¾İ³ÉÔ±
+	// å–å‡ºåŒ…æ•°æ®æˆå‘˜
 	pages = pPacket->m_Size / PKT_PAGE_SIZE;
 	index = (pPacket->m_pBuffer - m_pBuffer) / PKT_PAGE_SIZE;
 
@@ -593,16 +593,16 @@ void CPacketManager::PutPacket(CPacket *pPacket)
 	if((1u << type) != (unsigned int)pages)
 	{
 		type++;
-		index += pages; // indexÎªÒªÊÍ·ÅµÄ°üÄÚ´æ¿éºó½ô¸úµÄ0¼¶½ÚµãĞòºÅ
+		index += pages; // indexä¸ºè¦é‡Šæ”¾çš„åŒ…å†…å­˜å—åç´§è·Ÿçš„0çº§èŠ‚ç‚¹åºå·
 	}
 	else
 	{
 		i = type;
-		index /= pages; // indexÎªµ±Ç°½ÚµãµÄĞòºÅ
+		index /= pages; // indexä¸ºå½“å‰èŠ‚ç‚¹çš„åºå·
 		goto post_merge;
 	}
 
-	// ·ÖÎö³ö°ü»º³å°üº¬µÄËùÓĞ2Ãİ´Î½Úµã£¬Èç 11 = 8 + 2 + 1£¬´ÓĞ¡µ½´óÒ»Ò»½øĞĞºÏ²¢
+	// åˆ†æå‡ºåŒ…ç¼“å†²åŒ…å«çš„æ‰€æœ‰2å¹‚æ¬¡èŠ‚ç‚¹ï¼Œå¦‚ 11 = 8 + 2 + 1ï¼Œä»å°åˆ°å¤§ä¸€ä¸€è¿›è¡Œåˆå¹¶
 	for(i = 0; i < type; i++)
 	{
 		if(index & 0x1)
@@ -643,7 +643,7 @@ void CPacketManager::PutPacket(CPacket *pPacket)
 		index /= 2;
 	}
 
-	//½«ÏàÁÚĞ¡½ÚµãºÏ²¢³É´ó½Úµã, Èç1->2->4->8, Ö±µ½²»ÄÜÔÙºÏ²¢ÎªÖ¹
+	//å°†ç›¸é‚»å°èŠ‚ç‚¹åˆå¹¶æˆå¤§èŠ‚ç‚¹, å¦‚1->2->4->8, ç›´åˆ°ä¸èƒ½å†åˆå¹¶ä¸ºæ­¢
 	if(merged == 1)
 	{
 post_merge:
@@ -664,17 +664,17 @@ post_merge:
 		InsertFree(m_PBAs[i].pHeader, &m_PBAs[i].pArray[index]);
 	}
 
-	// »ØÊÕ°ü¿Ç¶ÔÏó
+	// å›æ”¶åŒ…å£³å¯¹è±¡
 	FreePacket(pPacket);
 }
 
-// É¾³ı¿ÕÏĞ½Úµã
+// åˆ é™¤ç©ºé—²èŠ‚ç‚¹
 inline void CPacketManager::RemoveFree(PBN * & pHeader, PBN * pThis)
 {
 	if(pThis == pHeader)
 	{
 		pHeader = pThis->pNext;
-		if(pThis == pHeader) // Ö»ÓĞÒ»¸ö½Úµã
+		if(pThis == pHeader) // åªæœ‰ä¸€ä¸ªèŠ‚ç‚¹
 		{
 			pThis->pNext = NULL;
 			pHeader = NULL;
@@ -687,7 +687,7 @@ inline void CPacketManager::RemoveFree(PBN * & pHeader, PBN * pThis)
 	pThis->pNext = NULL;
 }
 
-// ½«ĞÂµÄ¿ÕÏĞ½Úµã¼ÓÈëÁ´±í
+// å°†æ–°çš„ç©ºé—²èŠ‚ç‚¹åŠ å…¥é“¾è¡¨
 inline void CPacketManager::InsertFree(PBN * & pHeader, PBN * pThis)
 {
 	if(pHeader)
@@ -706,7 +706,7 @@ inline void CPacketManager::InsertFree(PBN * & pHeader, PBN * pThis)
 	}
 }
 
-//·µ»Ø»º³åµÄ´óĞ¡,ÒÔKBÎªµ¥Î»
+//è¿”å›ç¼“å†²çš„å¤§å°,ä»¥KBä¸ºå•ä½
 DWORD CPacketManager::GetBufferSize()
 {
 	CEZLock guard(m_Mutex);
@@ -724,7 +724,7 @@ void CPacketManager::Dump()
 	char tempstr[128];
 #endif
 	
-	//´òÓ¡ÀûÓÃÂÊ
+	//æ‰“å°åˆ©ç”¨ç‡
 	for(type = 0; type < m_nTypes; type++)
 	{
 		if(m_PBAs[type].pHeader)
@@ -776,7 +776,7 @@ void CPacketManager::DumpNodes()
 	int type;
 	CEZLock guard(m_Mutex);
 	PBN* current;
-	//´òÓ¡ËùÓĞ½ÚµãµÄ×´Ì¬
+	//æ‰“å°æ‰€æœ‰èŠ‚ç‚¹çš„çŠ¶æ€
 #if 0
 	for(type = 0; type < m_nTypes; type++)
 	{
@@ -796,10 +796,10 @@ void CPacketManager::DumpNodes()
 		trace("\n");
 	}
 #endif
-	//´òÓ¡¿ÕÏĞÁ´±í
+	//æ‰“å°ç©ºé—²é“¾è¡¨
 	trace("______________________________\n");
 	for(type = 0; type < m_nTypes; type++)
-	{//Ë³Ğò´òÓ¡
+	{//é¡ºåºæ‰“å°
 		trace("%4d : ", (1u <<type));
 		if(m_PBAs[type].pHeader)
 		{
@@ -861,7 +861,7 @@ void CPacketManager::Test()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
-/////////////////  Ìá¹©¸øCµ÷ÓÃµÄº¯Êı¡£
+/////////////////  æä¾›ç»™Cè°ƒç”¨çš„å‡½æ•°ã€‚
 int MemoryAlloc (MEMORY_BLOCK * pBlock, DWORD dwBytes)
 {
 	assert(pBlock != NULL);

@@ -29,15 +29,15 @@ CFLAGS += -D_LOG_FILENAME='"$(DEF_LOG_FILENAME)"'
 CFLAGS += -Wno-write-strings
 
 ##############################################################################
-# �����ļ�λ��
+# 代码文件位置
 SOLAR_BASEDIR_SRC=./
 
 ##############################################################################
-#���ļ�λ��
-#ʹ���Դ���
+#库文件位置
+#使用自带库
 #EZLIBS_BASEDIR_LIBS=../libs
 
-##ʹ�÷�����
+##使用发布库
 EZLIBS_BASEDIR_LIBS=$(HOME)/libs
 
 OBJS_SOLAR = \
@@ -58,7 +58,7 @@ CFLAGS += -I${EZLIBS_BASEDIR_LIBS}/include/ezThread
 LIBS +=	-L${EZLIBS_BASEDIR_LIBS}/lib -lezThread-$(PLATFORM)
 LIBS +=	-lpthread
 
-#���̣߳���ezthread��
+#多线程，用ezthread库
 OBJS_MULTITHREAD_P += $(OBJS_SOLAR)
 DIST_MULTITHREAD = $(PROJECT_NAME)-$(PLATFORM)
 

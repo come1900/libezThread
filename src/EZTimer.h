@@ -49,10 +49,10 @@ class CEZTimer : public CEZObject
 public:
     CEZTimer(const char * pName = "Nonamed");
     virtual ~CEZTimer();
-    //dwDueTime:ÑÓÊ±Ê±¼ä£»dwPriod£º¼ä¸ôÊ±¼ä£¨Õğµ´ÆµÂÊ£©
+    //dwDueTime:å»¶æ—¶æ—¶é—´ï¼›dwPriodï¼šé—´éš”æ—¶é—´ï¼ˆéœ‡è¡é¢‘ç‡ï¼‰
     void Start(CEZObject * pObj
                , EZ_TIMER_PROC pTimerFun
-               , unsigned int dwDueTime // ³ÖĞøÊ±¼ä
+               , unsigned int dwDueTime // æŒç»­æ—¶é—´
                , unsigned int dwPriod
                , EZTHREAD_PARAM param = 0
                , unsigned int timeout = 0);
@@ -74,8 +74,8 @@ private:
     EZTHREAD_BOOL  m_Started;
     EZTHREAD_BOOL  m_Called;
     static CEZMutex m_CMutex;
-    CEZTimer* m_pPrev;		//ÉÏÒ»¸ö¶¨Ê±Æ÷
-    CEZTimer* m_pNext;		//ÏÂÒ»¸ö¶¨Ê±Æ÷
+    CEZTimer* m_pPrev;		//ä¸Šä¸€ä¸ªå®šæ—¶å™¨
+    CEZTimer* m_pNext;		//ä¸‹ä¸€ä¸ªå®šæ—¶å™¨
     CEZThreadlet m_threadlet;
 };
 
@@ -95,7 +95,7 @@ public:
 
 protected:
 private:
-    TimerValue m_CurTime;	//ºÁÃë¼ÆÊı
+    TimerValue m_CurTime;	//æ¯«ç§’è®¡æ•°
     CEZTimer* m_pHead;
 };
 

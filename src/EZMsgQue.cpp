@@ -52,7 +52,7 @@ EZTHREAD_BOOL CEZMsgQue::SendMessage(unsigned int msg, EZTHREAD_PARAM wpa /* = 0
         return EZTHREAD_BOOL_FALSE;
     }
 
-    //�����Ϣ���⴦��, �ϲ�����ƶ���Ϣ
+    //鼠标消息特殊处理, 合并鼠标移动消息
 #ifdef SUPPORT_MOUSE_MSG
     if(msg == XM_MOUSEMOVE && !m_Queue.empty())
     {
@@ -74,9 +74,9 @@ EZTHREAD_BOOL CEZMsgQue::SendMessage(unsigned int msg, EZTHREAD_PARAM wpa /* = 0
     }
 #endif
     /************************************************************************
-    	������Ϣ:
-    	1���������ȼ��Ѹ���Ϣ�������m_Queue��
-    //	2���ڸö����в��Ҹ���Ϣ�ڵ㣬ֱ���Ҳ����ýڵ���˳�ѭ�����Ӹú������أ�
+    	发送消息:
+    	1、按照优先级把该消息插入队列m_Queue；
+    //	2、在该队列中查找该消息节点，直到找不到该节点才退出循环并从该函数返回；
     ************************************************************************/
     l_MSG.msg = msg;
     l_MSG.wpa = wpa;
@@ -116,9 +116,9 @@ EZTHREAD_BOOL CEZMsgQue::SendMessage(void *p_user_data)
     }
 
     /************************************************************************
-    	������Ϣ:
-    	1���������ȼ��Ѹ���Ϣ�������m_Queue��
-    //	2���ڸö����в��Ҹ���Ϣ�ڵ㣬ֱ���Ҳ����ýڵ���˳�ѭ�����Ӹú������أ�
+    	发送消息:
+    	1、按照优先级把该消息插入队列m_Queue；
+    //	2、在该队列中查找该消息节点，直到找不到该节点才退出循环并从该函数返回；
     ************************************************************************/
     l_MSG.msg = MSG_On_UserData;
     l_MSG.wpa = 0;
@@ -139,9 +139,9 @@ EZTHREAD_BOOL CEZMsgQue::SendMessage(void *p_user_data)
 EZTHREAD_BOOL CEZMsgQue::RecvMessage(MSG_NODE *pMsg, EZTHREAD_BOOL wait /* = EZTHREAD_BOOL_TRUE */)
 {
     /************************************************************************
-    	������Ϣ������ȴ���һֱ�ȵ�����Ϣʱ���أ�����ֱ�ӷ��ء�
-    	1������Ϣæ����m_QueueȡԪ�أ����ȡ�ɹ�����ֱ�ӷ��أ�
-    	2������ѭ������Ϣæm_Queue��ȡԪ�أ�ֱ��ȡ�ɹ����˳�ѭ����
+    	接收消息，如果等待则一直等到有消息时返回，否则直接返回。
+    	1、从消息忙队列m_Queue取元素，如果取成功，则直接返回；
+    	2、否则循环从消息忙m_Queue中取元素，直到取成功才退出循环；
     ************************************************************************/
 
     if(wait)

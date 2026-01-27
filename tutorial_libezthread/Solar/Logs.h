@@ -30,7 +30,7 @@
 using namespace log4cplus;
 using namespace log4cplus::helpers;
 
-// ÈÕÖ¾ËùÊôÄ£¿é
+// æ—¥å¿—æ‰€å±æ¨¡å—
 //#define  LOG_ROOT  Logger::getRoot()
 #define  LOG_UNITRANS   Logger::getInstance(LOG4CPLUS_TEXT("UTS"))
 #define  LOG_SOLAR   Logger::getInstance(LOG4CPLUS_TEXT("SOLAR"))
@@ -54,7 +54,7 @@ using namespace log4cplus::helpers;
 #define LOG4CPLUS_DEBUG(x, y)
 
 #endif//EXAMPLE_LOG4CPP
-//ÈÕÖ¾µÈ¼¶
+//æ—¥å¿—ç­‰çº§
 /*
         LOG4CPLUS_DEBUG(LOG_IPC, "debug log" << i);
         LOG4CPLUS_INFO(LOG_IPC, "This is a int: " << 1000);

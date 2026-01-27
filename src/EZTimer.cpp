@@ -40,7 +40,7 @@ CEZMutex CEZTimer::m_CMutex(MUTEX_RECURSIVE);
 void TimerValue::operator+= (unsigned int a)
 {
 	lo += a;
-	if(lo < a) //½øÎ»
+	if(lo < a) //è¿›ä½
 	{
 		hi++;
 	}
@@ -127,7 +127,7 @@ void CEZTimer::Stop(EZTHREAD_BOOL bCallNow /* = EZTHREAD_BOOL_FALSE */)
 		return;
 	}
 
-	//½áÊøÊ±Á¢¼´µ÷ÓÃÒ»´Î»Øµ÷º¯Êı£¬ÔÚĞèÒªÌáÇ°½áÊø·ÇÖÜÆÚ¶¨Ê±Æ÷Ê±ÓĞÓÃ
+	//ç»“æŸæ—¶ç«‹å³è°ƒç”¨ä¸€æ¬¡å›è°ƒå‡½æ•°ï¼Œåœ¨éœ€è¦æå‰ç»“æŸéå‘¨æœŸå®šæ—¶å™¨æ—¶æœ‰ç”¨
 	if(bCallNow && m_Priod == 0)
 	{
 		(m_pObj->*m_pTimerFun)(m_param); 
@@ -313,7 +313,7 @@ CEZLock __lock(CEZTimer::m_CMutex);
 		unsigned int OldTime = m_CurTime.lo;
 		m_CurTime.lo = SystemGetMSCount();
 
-		// ¼ÆÊ±Ã»ÓĞ¸Ä±ä£¬¿ÉÄÜÊÇÒòÎª¼ÆÊ±Æ÷¾«¶È²»¸ß
+		// è®¡æ—¶æ²¡æœ‰æ”¹å˜ï¼Œå¯èƒ½æ˜¯å› ä¸ºè®¡æ—¶å™¨ç²¾åº¦ä¸é«˜
 		if(m_CurTime.lo == OldTime)
 		{
 			continue;
@@ -323,7 +323,7 @@ CEZLock __lock(CEZTimer::m_CMutex);
 		{
 			// ez_trace("CEZTimerManager::Check() MSCount Overflowed, %u < %u .\n", m_CurTime.lo, OldTime);
 
-			if(m_CurTime.lo < 10000) //ÅĞ¶¨ÎªÒç³ö
+			if(m_CurTime.lo < 10000) //åˆ¤å®šä¸ºæº¢å‡º
 			{
 				m_CurTime.hi++;
 			}

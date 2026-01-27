@@ -8,10 +8,10 @@
  *
  *  Explain:
  *     -
- *      Éú²úÕßºÍÏû·ÑÕßµÄÀı×Ó
- *        g_Producers  ----- Éú²úÕß 
- *        CTimerProducers -- ¶¨Ê±Æ÷Éú²úÕß
- *        g_Consumers  ----- Ïû·ÑÕß
+ *      ç”Ÿäº§è€…å’Œæ¶ˆè´¹è€…çš„ä¾‹å­
+ *        g_Producers  ----- ç”Ÿäº§è€… 
+ *        CTimerProducers -- å®šæ—¶å™¨ç”Ÿäº§è€…
+ *        g_Consumers  ----- æ¶ˆè´¹è€…
  *     -
  *
  *  Update:
@@ -97,16 +97,16 @@ int main(int argc, char* argv[])
 {
     int iRet = 0;
 
-    // ¶¨Ê±Æ÷¿ªÆô
+    // å®šæ—¶å™¨å¼€å¯
     g_TimerManager.Start();
-    // ×¢²áÖ÷Ïß³Ì
+    // æ³¨å†Œä¸»çº¿ç¨‹
     g_ThreadManager.RegisterMainThread(ThreadGetID());
 
     printf("%s end.\n", argv[0]);
 
-    // Æô¶¯Ïû·ÑÕßÏß³Ì
+    // å¯åŠ¨æ¶ˆè´¹è€…çº¿ç¨‹
     g_Consumers.Start();
-    // Æô¶¯Éú²úÕßÏß³Ì
+    // å¯åŠ¨ç”Ÿäº§è€…çº¿ç¨‹
     g_Producers.Start();
 
     CTimerProducers TimerProducers;

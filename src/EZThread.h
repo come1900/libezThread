@@ -71,10 +71,10 @@ private:
 	// char	m_Name[MAX_THREAD_NAME_LENGTH+1];
 	std::string *m_pStrThreadName;
 	CEZMsgQue* m_pMsgQue;
-	CEZThread* m_pPrev;		//ÉÏÒ»¸öÏß³Ì
-	CEZThread* m_pNext;		//ÏÂÒ»¸öÏß³Ì
-	CEZSemaphore m_cCEZSemaphore;	// ¸ÃĞÅºÅÁ¿ÓÃÀ´·ÀÖ¹Í¬Ò»¸ö¶ÔÏóµÄÏß³ÌÍ¬Ê±±»´´½¨¶à´Î£»
-	unsigned int	m_expectedTime;	//Ô¤¼ÆÖ´ĞĞ½áÊøÊ±µÄÊ±¼ä£¬0±íÊ¾²»Ô¤¼Æ
+	CEZThread* m_pPrev;		//ä¸Šä¸€ä¸ªçº¿ç¨‹
+	CEZThread* m_pNext;		//ä¸‹ä¸€ä¸ªçº¿ç¨‹
+	CEZSemaphore m_cCEZSemaphore;	// è¯¥ä¿¡å·é‡ç”¨æ¥é˜²æ­¢åŒä¸€ä¸ªå¯¹è±¡çš„çº¿ç¨‹åŒæ—¶è¢«åˆ›å»ºå¤šæ¬¡ï¼›
+	unsigned int	m_expectedTime;	//é¢„è®¡æ‰§è¡Œç»“æŸæ—¶çš„æ—¶é—´ï¼Œ0è¡¨ç¤ºä¸é¢„è®¡
 	CEZSemaphore m_desCEZSemaphore;
 	
 };
@@ -112,7 +112,7 @@ public:
 
 private:
 	CEZPooledThread* m_thread;
-	static CEZMutex m_mutex;	///< ±£Ö¤ThreadletºÍPooledThreadµÄ¹ØÁª¹ØÏµ
+	static CEZMutex m_mutex;	///< ä¿è¯Threadletå’ŒPooledThreadçš„å…³è”å…³ç³»
 };
 
 class CEZThreadManager : public CEZObject

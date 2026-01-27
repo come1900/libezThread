@@ -52,11 +52,11 @@ int main(int argc, char* argv[])
 
 	g_TimerManager.Start();
 	
-	g_ThreadManager.RegisterMainThread(ThreadGetID());	// ×¢²áÖ÷Ïß³Ì
+	g_ThreadManager.RegisterMainThread(ThreadGetID());	// æ³¨å†Œä¸»çº¿ç¨‹
 
     printf("%s end.\n", argv[0]);
     
-    // ÏÈÆô¶¯
+    // å…ˆå¯åŠ¨
     g_Consumers.Start();
 
     g_Producers.Start();

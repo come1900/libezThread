@@ -1,7 +1,18 @@
-// DevUsbStorageKey.cpp: implementation of the CDevUsbStorageKey class.
-//
-//////////////////////////////////////////////////////////////////////
-
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
+/*
+ * DevUsbStorageKey.cpp - _explain_
+ *
+ * Copyright (C) 2011 ezlibs.com, All Rights Reserved.
+ *
+ * $Id: DevUsbStorageKey.cpp 5884 2012-05-16 09:14:51Z WuJunjie $
+ *
+ *  Explain:
+ *     -explain-
+ *
+ *  Update:
+ *     2012-05-16 09:09:51   Create
+ */
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
 #include "DevUsbStorageKey.h"
 
 #ifndef _DEBUG_THIS
@@ -84,8 +95,8 @@ BOOL CDevUsbStorageKey::Stop(CEZObject * pObj, DevUsbStorageKeySignalProc_t pPro
 
     CEZLock __lock(m_MutexSigBuffer);
 
-    // Õâ²»¿ÆÑ§£¬ µ«ÊÇÎªÁË±ÜÃâdetachÊ§°Ü ¶ø²»Í£Ö¹Ïß³Ì
-    // Ê¹ÓÃÕß×ÔĞĞ×¢ÒâstartºÍstop³É¶Ôµ÷ÓÃ
+    // è¿™ä¸ç§‘å­¦ï¼Œ ä½†æ˜¯ä¸ºäº†é¿å…detachå¤±è´¥ è€Œä¸åœæ­¢çº¿ç¨‹
+    // ä½¿ç”¨è€…è‡ªè¡Œæ³¨æ„startå’Œstopæˆå¯¹è°ƒç”¨
     if(m_iUser>0)
     {
         m_iUser--;
@@ -143,10 +154,10 @@ void CDevUsbStorageKey::ThreadProc()
             printf("CDevUsbStorageKey::ThreadProc.\n");
         );
 
-        // ·¢ËÍÏûÏ¢ (unsigned int msg, PARAM wpa = 0, PARAM lpa = 0, unsigned int priority = 0);
+        // å‘é€æ¶ˆæ¯ (unsigned int msg, PARAM wpa = 0, PARAM lpa = 0, unsigned int priority = 0);
         //g_Consumers.SendMessage(100, ii, ii-1, 0);
 
-        // »Øµ÷
+        // å›è°ƒ
         m_SigBuffer(/*HDISKREADER_CMD_FINISHED*/1, NULL, ii, time(NULL));
 
         ii++;

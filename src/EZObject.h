@@ -27,7 +27,7 @@ public:
 };
 
 /*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
-///////////////// ����ģʽ -- ���̰߳�ȫģʽ��һ���ڳ����ʼ����ʱ�����һ��Ҳ�����������
+///////////////// 单件模式 -- 非线程安全模式，一般在程序初始化的时候调用一下也不会出现问题
 #define PATTERN_SINGLETON_NOTSAFE_DECLARE(classname)	\
 static classname * instance();
 
@@ -42,8 +42,8 @@ classname * classname::instance()		\
 	return _instance;							\
 }												
 
-// ����ģʽ���������Ƿ���ø����ʵ�����ڳ���ʼʱ�ͻ����һ�������ʵ��
-// ���ܽϸߣ��ʶ�Ĭ��ʹ�ô�ģʽ
+// 饿汉模式：即无论是否调用该类的实例，在程序开始时就会产生一个该类的实例
+// 性能较高，故而默认使用此模式
 #define PATTERN_SINGLETON_DECLARE(classname)	\
 static classname * instance();                  \
 static classname* _instance;
@@ -58,7 +58,7 @@ classname* classname::_instance = new classname;
 
 
 /////////////////////////////////////////////////////
-///////////////// �ڴ��ģʽ������ʵ��
+///////////////// 内存池模式，内联实现
 #define USE_POOL_ALLOCATOR(classname)				\
 static void * operator new(size_t size)				\
 {													\

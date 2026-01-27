@@ -33,7 +33,7 @@
 #endif
 
 /*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
-#define NO_UGM_MODEL 1 //Ã»ÓĞÓÃ»§¹ÜÀí
+#define NO_UGM_MODEL 1 //æ²¡æœ‰ç”¨æˆ·ç®¡ç†
 #define PROMPT_CONSOLE  "Sunflower"
 
 #define CMD_PUB_HELP  "help"
@@ -155,12 +155,12 @@ EZTHREAD_BOOL CLocalConsole::Stop()
     return EZTHREAD_BOOL_TRUE;
 }
 
-/// È¡µ½Êı¾İµÄµ÷ÓÃ
+/// å–åˆ°æ•°æ®çš„è°ƒç”¨
 ///
-/// \param [in] pCaps Êı¾İÖ¸Õë
-/// \param [in] iLength Êı¾İ³¤¶È
-/// \retval 0  »ñÈ¡³É¹¦¡£
-/// \retval -1  »ñÈ¡Ê§°Ü¡£
+/// \param [in] pCaps æ•°æ®æŒ‡é’ˆ
+/// \param [in] iLength æ•°æ®é•¿åº¦
+/// \retval 0  è·å–æˆåŠŸã€‚
+/// \retval -1  è·å–å¤±è´¥ã€‚
 void CLocalConsole::OnData(void *pDat, int iLength)
 {
     char  l_dbData[2];
@@ -174,7 +174,7 @@ void CLocalConsole::OnData(void *pDat, int iLength)
 
         if(m_bShowContinue)
         {
-            if(l_dbData[0] == 'q' || l_dbData[0] == 'Q') // 'q'ÎªÍË³ö¼ü
+            if(l_dbData[0] == 'q' || l_dbData[0] == 'Q') // 'q'ä¸ºé€€å‡ºé”®
             {
                 m_bShowContinue = EZTHREAD_BOOL_FALSE;
                 trace("\nDEBUG>");
@@ -223,7 +223,7 @@ void CLocalConsole::OnData(void *pDat, int iLength)
                 {
                     m_szData[m_iWordPosition++] = '\0';
                     //
-                    // µ÷ÊÔÓÃ»§×÷ÎªÍøÂçÓÃ»§µÇÂ¼£¬È·±£±¾µØµÇÂ¼Ö»ÓĞÒ»¸öÓÃ»§
+                    // è°ƒè¯•ç”¨æˆ·ä½œä¸ºç½‘ç»œç”¨æˆ·ç™»å½•ï¼Œç¡®ä¿æœ¬åœ°ç™»å½•åªæœ‰ä¸€ä¸ªç”¨æˆ·
                     //
 #ifdef NO_UGM_MODEL
 
@@ -324,7 +324,7 @@ void CLocalConsole::OnData(void *pDat, int iLength)
 
 /*	$FXN :
 ==	======================================================================
-==	$DSC :	½âÎöÔÚÃüÁîĞĞÊäÈëµÄ×Ö·û´®£¬²¢°Ñ½âÎö³öÀ´µÄÃüÁîºÍ²ÎÊı¶¼·ÅÔÚm_dbParamTab±äÁ¿ÖĞ
+==	$DSC :	è§£æåœ¨å‘½ä»¤è¡Œè¾“å…¥çš„å­—ç¬¦ä¸²ï¼Œå¹¶æŠŠè§£æå‡ºæ¥çš„å‘½ä»¤å’Œå‚æ•°éƒ½æ”¾åœ¨m_dbParamTabå˜é‡ä¸­
 ==	$ARG :
 ==		 :
 ==	$RET :
@@ -435,10 +435,10 @@ void CLocalConsole::StrParse()
     trace("\nUnknow command:`%s`, '%s' show command.\n", m_dbParamTab[0], CMD_PUB_HELP);
 }
 
-/// È¡ÃüÁî½Ó¿Ú
+/// å–å‘½ä»¤æ¥å£
 ///
-/// \retval 0  »ñÈ¡³É¹¦¡£
-/// \retval -1  »ñÈ¡Ê§°Ü¡£
+/// \retval 0  è·å–æˆåŠŸã€‚
+/// \retval -1  è·å–å¤±è´¥ã€‚
 char * CLocalConsole::GetCmd()
 {
     char *str = m_dbParamTab[1];
@@ -454,11 +454,11 @@ char * CLocalConsole::GetCmd()
     return &m_dbParamTab[1][1];
 }
 
-/// È¡ÃüÁî²ÎÊı
+/// å–å‘½ä»¤å‚æ•°
 ///
-/// \param [in] pos ²ÎÊıÎ»ÖÃ
-/// \retval *  »ñÈ¡³É¹¦¡£
-/// \retval NULL  »ñÈ¡Ê§°Ü¡£
+/// \param [in] pos å‚æ•°ä½ç½®
+/// \retval *  è·å–æˆåŠŸã€‚
+/// \retval NULL  è·å–å¤±è´¥ã€‚
 char * CLocalConsole::GetArg(int pos)
 {
     if (m_iParams < (pos + 2))

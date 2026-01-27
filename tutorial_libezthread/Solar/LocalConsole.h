@@ -43,15 +43,15 @@ int_def SYS_MAX_GROUPNAME_LEN = 6;
 
 enum _con_stat
 {
-    DBG_OFF = 0,	//¿ØÖÆÌ¨¹Ø±Õ×´Ì¬
-    DBG_USRNAME,	//ÓÃ»§ÃûÊäÈë×´Ì¬
-    DBG_PASSWD,		//ÃÜÂëÊäÈë×´Ì¬
-    DBG_LINE,		//ÃüÁîĞĞ×´Ì¬
+    DBG_OFF = 0,	//æ§åˆ¶å°å…³é—­çŠ¶æ€
+    DBG_USRNAME,	//ç”¨æˆ·åè¾“å…¥çŠ¶æ€
+    DBG_PASSWD,		//å¯†ç è¾“å…¥çŠ¶æ€
+    DBG_LINE,		//å‘½ä»¤è¡ŒçŠ¶æ€
 };
 enum _lvl_t
 {
     LVL_NONE = 0,
-    LVL_SPRTR,	//·Ö¸îÆ÷
+    LVL_SPRTR,	//åˆ†å‰²å™¨
     LVL_USR,
     LVL_SYS,
 };
@@ -64,7 +64,7 @@ class CLocalConsole;
 typedef void (CLocalConsole::*DBG_FXN)();
 struct DBG_ATT
 {
-	int			level;		//µÈ¼¶
+	int			level;		//ç­‰çº§
 	char		*cmdStr;
 	DBG_FXN		proc;
 	char		*hlpStr;
@@ -77,7 +77,7 @@ class CLocalConsole : public CEZThread
 {
 private:
 	/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
-	// ¹¤¾ß
+	// å·¥å…·
 	/// Dump the help message
 	void Helpme();
 	/// logout
@@ -85,12 +85,12 @@ private:
 	void iDev_SysReboot();
 
 	/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
-	// ¹¦ÄÜ
+	// åŠŸèƒ½
 
 
 
 	/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
-	// ¹¤¾ßÄÚ²¿Ê¹ÓÃ
+	// å·¥å…·å†…éƒ¨ä½¿ç”¨
 public:
 	PATTERN_SINGLETON_DECLARE(CLocalConsole);
 	CLocalConsole();
@@ -107,13 +107,13 @@ private:
 	void StrParse();
 
 	EZTHREAD_BOOL m_bShowContinue;
-	//µ±Ç°µÄµ÷ÊÔ¹¦ÄÜ
+	//å½“å‰çš„è°ƒè¯•åŠŸèƒ½
 	DBG_FXN m_pCurProc;
 	int		m_iState;
 	int		m_iWordPosition;
 	char	m_szData[512];
 	char	m_szUserName[SYS_MAX_USERNAME_LEN+1];
-	//ÃüÁîĞĞ²ÎÊıÊıÁ¿
+	//å‘½ä»¤è¡Œå‚æ•°æ•°é‡
 	int		m_iParams;
 	char	m_dbParamTab[16][32];
 	static	DBG_ATT	m_sDbgTbl[N_DBG_CMD];

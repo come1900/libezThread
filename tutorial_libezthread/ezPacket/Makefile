@@ -24,7 +24,7 @@ CFLAGS += -I$(HOME)/libs/include/ezThread
 
 CLEAN_FILES += *actual* *rewrite* a.txt
 
-#ÌØÊâ¹¦ÄÜÇø
+#ç‰¹æ®ŠåŠŸèƒ½åŒº
 #
 
 CPPFLAGS =	$(CFLAGS) 

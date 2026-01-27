@@ -43,7 +43,7 @@ unsigned int SystemGetUSCount(void)
 
 
 /************************************************************************
- *  times ÔÚiosÖĞ³ÌĞò±ÀÀ£ linuxÖĞok -- wujj 2014-3-24 14:22:48
+ *  times åœ¨iosä¸­ç¨‹åºå´©æºƒ linuxä¸­ok -- wujj 2014-3-24 14:22:48
  ************************************************************************/
 unsigned int SystemGetMSCount(void)
 {
@@ -79,8 +79,8 @@ unsigned long long process_counter_ms()
 {
 	static unsigned int lastTime = 0;
 	static unsigned int curTime = 0;
-	static unsigned long long adjTime = 0; //Á½´Îµ÷ÓÃµÄ²îÖµ
-	static unsigned long long MyMsCount = 0; //×ÔĞĞ¼ÆÊı
+	static unsigned long long adjTime = 0; //ä¸¤æ¬¡è°ƒç”¨çš„å·®å€¼
+	static unsigned long long MyMsCount = 0; //è‡ªè¡Œè®¡æ•°
 
 	if (lastTime==0)
 	{

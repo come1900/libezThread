@@ -1,9 +1,20 @@
-// DevUsbStorageKey.h: interface for the CDevUsbStorageKey class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_DEVUSBSTORAGEKEY_H__7AA351FC_02F1_4C02_959C_74FBE94D83F7__INCLUDED_)
-#define AFX_DEVUSBSTORAGEKEY_H__7AA351FC_02F1_4C02_959C_74FBE94D83F7__INCLUDED_
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
+/*
+ * DevUsbStorageKey.h - _explain_
+ *
+ * Copyright (C) 2011 ezlibs.com, All Rights Reserved.
+ *
+ * $Id: DevUsbStorageKey.h 5884 2012-05-16 09:14:47Z WuJunjie $
+ *
+ *  Explain:
+ *     -explain-
+ *
+ *  Update:
+ *     2012-05-16 09:09:51   Create
+ */
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
+#ifndef _EZDevUsbStorageKey_H_
+#define _EZDevUsbStorageKey_H_
 
 #include "EZThread.h"
 #include "EZTimer.h"
@@ -35,10 +46,8 @@ private:
 
     CEZMutex m_MutexSigBuffer;
 
-    //¼ÆÊý
+    //è®¡æ•°
     int				m_iUser;
 };
-#endif // !defined(AFX_DEVUSBSTORAGEKEY_H__7AA351FC_02F1_4C02_959C_74FBE94D83F7__INCLUDED_)
 
-
-
+#endif// _EZDevUsbStorageKey_H_

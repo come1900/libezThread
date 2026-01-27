@@ -8,7 +8,7 @@
  *
  *  Explain:
  *     -
- *      Ò»°ãÖ÷µ÷Àà
+ *      ä¸€èˆ¬ä¸»è°ƒç±»
  *     -
  *
  *  Update:
@@ -141,7 +141,7 @@ void CSolar::Initialize(int argc, char * argv[])
     //g_Maintenance.Start(/*bUseCfgAtStartForce*/false, /*bMaintenanceAuto*/true);
 
 
-    // Æô¶¯Íê±Ï£¬ ±£´æÒ»´ÎÅäÖÃÎÄ¼ş
+    // å¯åŠ¨å®Œæ¯•ï¼Œ ä¿å­˜ä¸€æ¬¡é…ç½®æ–‡ä»¶
     //g_Config.saveFile();
     LOG4CPLUS_INFO(LOG_SOLAR, argv[0] << " Initialize finished");
     printf("%s Initialize end, running ...\n", argv[0]);
@@ -151,7 +151,7 @@ void CSolar::Initialize(int argc, char * argv[])
 
 int CSolar::InitializeLogs()
 {
-    //	³õÊ¼»¯ÈÕÖ¾ÏµÍ³
+    //	åˆå§‹åŒ–æ—¥å¿—ç³»ç»Ÿ
 
 
     return 0;
@@ -198,7 +198,7 @@ int CSolar::Restart()
 int CSolar::Restore()
 {
     DBG(__fline;printf("g_Config.SetDefaultConfig(CFG_IDX_ALL);\n"););
-    // È«²¿»Ö¸´
+    // å…¨éƒ¨æ¢å¤
 
     return 0;
 }
@@ -236,7 +236,7 @@ int already_running(const char *filename)
         exit(-1);
     }
 
-    /* ÏÈ»ñÈ¡ÎÄ¼şËø */
+    /* å…ˆè·å–æ–‡ä»¶é” */
     if (lockfile(fd) == -1)
     {
         if (errno == EACCES || errno == EAGAIN)
@@ -248,7 +248,7 @@ int already_running(const char *filename)
         printf("can't lock %s: %m\n", filename);
         exit(-1);
     }
-    /* Ğ´ÈëÔËĞĞÊµÀıµÄpid */
+    /* å†™å…¥è¿è¡Œå®ä¾‹çš„pid */
     ftruncate(fd, 0);
     sprintf(buf, "%ld", (long)getpid());
     write(fd, buf, strlen(buf) + 1);
@@ -258,7 +258,7 @@ int already_running(const char *filename)
 
 void CSolar::TimerProcMaintain()
 {
-    // ÎªÁË¼ÆÊı×¼È·£¬²»ÒÀÀµÏµÍ³Ê±¼ä£¬×Ô¼ºÎ¬»¤
+    // ä¸ºäº†è®¡æ•°å‡†ç¡®ï¼Œä¸ä¾èµ–ç³»ç»Ÿæ—¶é—´ï¼Œè‡ªå·±ç»´æŠ¤
     m_iRunPeriod ++;
 }
 

@@ -8,8 +8,8 @@
  *
  *  Explain:
  *     -
- *          Observer pattern µÄÊ¾Àı
- *          ÁíÍâÓĞ
+ *          Observer pattern çš„ç¤ºä¾‹
+ *          å¦å¤–æœ‰
  *     -
  *
  *  Update:
@@ -37,7 +37,7 @@ private:
 
     CEZMutex m_CMutex;
 
-    //¼ÆÊı
+    //è®¡æ•°
     int				m_iUser;
 
 public:
@@ -129,11 +129,11 @@ int main(int argc, char* argv[])
     int iRet = 0;
 
     g_TimerManager.Start();
-    g_ThreadManager.RegisterMainThread(ThreadGetID());	// ×¢²áÖ÷Ïß³Ì
+    g_ThreadManager.RegisterMainThread(ThreadGetID());	// æ³¨å†Œä¸»çº¿ç¨‹
     CProducers __prod;
 
 
-    // ÏÈÆô¶¯
+    // å…ˆå¯åŠ¨
     g_Consumers.Start();
 
     CObserver __withCallback_tom("tom");
@@ -193,10 +193,10 @@ void CProducers::ThreadProc()
     {
         //__trip;
 
-        // ·¢ËÍÏûÏ¢ (unsigned int msg, PARAM wpa = 0, PARAM lpa = 0, unsigned int priority = 0);
+        // å‘é€æ¶ˆæ¯ (unsigned int msg, PARAM wpa = 0, PARAM lpa = 0, unsigned int priority = 0);
         g_Consumers.SendMessage(100, ii, ii-1, 0);
 
-        // »Øµ÷
+        // å›è°ƒ
         //m_sigBuffer(/*HDISKREADER_CMD_FINISHED*/1, NULL, ii, time(NULL));
         m_sigBuffer.emit(/*HDISKREADER_CMD_FINISHED*/1, NULL, ii, time(NULL));
         ii++;

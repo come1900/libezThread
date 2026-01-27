@@ -181,7 +181,7 @@ public:
 
         for(i=0; i<m_nMaxSlots; i++)
         {
-            if(m_Vector[i].m_Status == SIGNAL_NODE_NORMAL)			//�ɲ���״̬
+            if(m_Vector[i].m_Status == SIGNAL_NODE_NORMAL)			//可操作状态
             {
                 m_Vector[i](SIGNAL_ARGS);							//call back
             }

@@ -36,7 +36,7 @@ enum xm_msg_t {
 	XM_SYSTEM_END
 };
 
-// оъЁлсеох╪╤
+// Г╨©Г╗▀Д╪≤Е┘┬Г╨╖
 enum __thread_priority {
     THREAD_PRIORITY_COM     =   1 ,
     THREAD_PRIORITY_TIMER   =   2 ,

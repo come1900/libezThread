@@ -1,7 +1,18 @@
-// FunUsbStorageKey.cpp: implementation of the CFunUsbStorageKey class.
-//
-//////////////////////////////////////////////////////////////////////
-
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
+/*
+ * FunUsbStorageKey.cpp - _explain_
+ *
+ * Copyright (C) 2011 ezlibs.com, All Rights Reserved.
+ *
+ * $Id: FunUsbStorageKey.cpp 5884 2012-05-16 09:14:51Z WuJunjie $
+ *
+ *  Explain:
+ *     -explain-
+ *
+ *  Update:
+ *     2012-05-16 09:09:51   Create
+ */
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
 #include "../../Device/DevUsbStorageKey.h"
 
 #include "FunUsbStorageKey.h"

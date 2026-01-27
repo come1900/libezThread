@@ -1,13 +1,20 @@
-// FunUsbStorageKey.h: interface for the CFunUsbStorageKey class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_FUNUSBSTORAGEKEY_H__B67EB36D_A812_4A1B_BB73_D3526D803C5C__INCLUDED_)
-#define AFX_FUNUSBSTORAGEKEY_H__B67EB36D_A812_4A1B_BB73_D3526D803C5C__INCLUDED_
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
+/*
+ * FunUsbStorageKey.h - _explain_
+ *
+ * Copyright (C) 2011 ezlibs.com, All Rights Reserved.
+ *
+ * $Id: FunUsbStorageKey.h 5884 2012-05-16 09:14:47Z WuJunjie $
+ *
+ *  Explain:
+ *     -explain-
+ *
+ *  Update:
+ *     2012-05-16 09:09:51   Create
+ */
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
+#ifndef _EZFunUsbStorageKey_H_
+#define _EZFunUsbStorageKey_H_
 
 class CFunUsbStorageKey : public CEZObject
 {
@@ -26,4 +33,5 @@ public:
     virtual ~CFunUsbStorageKey();
 
 };
-#endif // !defined(AFX_FUNUSBSTORAGEKEY_H__B67EB36D_A812_4A1B_BB73_D3526D803C5C__INCLUDED_)
+
+#endif// _EZFunUsbStorageKey_H_

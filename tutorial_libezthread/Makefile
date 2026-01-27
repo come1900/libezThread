@@ -32,7 +32,7 @@ CFLAGS += -I$(HOME)/libs/libsigc++-$(PLATFORM)/include/sigc++-2.0
 
 CLEAN_FILES += *actual* *rewrite* a.txt
 
-#ÌØÊâ¹¦ÄÜÇø
+#ç‰¹æ®ŠåŠŸèƒ½åŒº
 #
 
 CPPFLAGS =	$(CFLAGS) 

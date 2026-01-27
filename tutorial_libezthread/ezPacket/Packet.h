@@ -73,12 +73,12 @@ class CPacket {
 public:
 	DWORD	PutBuffer(void * pdat, DWORD dwLength);
 	BYTE *	GetBuffer();
-	DWORD   SetLength(DWORD dwLength);		//ÉèÖÃ°ü³¤¶È	
-	DWORD	GetLength();					//È¡Êı¾İ³¤¶È
-	DWORD	GetSize();						//»ñÈ¡ÈİÁ¿
-	DWORD	GetLeft();						//È¡Ê£ÓàÈİÁ¿
-	BYTE *	GetHeader();					//Çå¿Õ°üÍ·Êı¾İ
-	void	ClearHeader();					//Çå¿Õ°üÍ·Êı¾İ
+	DWORD   SetLength(DWORD dwLength);		//è®¾ç½®åŒ…é•¿åº¦	
+	DWORD	GetLength();					//å–æ•°æ®é•¿åº¦
+	DWORD	GetSize();						//è·å–å®¹é‡
+	DWORD	GetLeft();						//å–å‰©ä½™å®¹é‡
+	BYTE *	GetHeader();					//æ¸…ç©ºåŒ…å¤´æ•°æ®
+	void	ClearHeader();					//æ¸…ç©ºåŒ…å¤´æ•°æ®
 	DWORD	Release(int iId=-1);
 	DWORD	AddRef(int iId=-1);
 	DWORD	GetRef();
@@ -88,12 +88,12 @@ public:
 	int		m_iLastUId;
 
 private:
-	BYTE *	m_pBuffer;		//»º³åÖ¸Õë
-	DWORD	m_Size;			//´óĞ¡
-	DWORD	m_Length;		//Êı¾İ³¤¶È
-	DWORD	m_RefCount;		//ÒıÓÃ¼ÆÊı
-	CEZMutex	m_Mutex;		//»¥³âÁ¿
-	SYSTEM_TIME  m_SysTime;  //±£´æ°üµÄµ±Ç°Ê±¼ä
+	BYTE *	m_pBuffer;		//ç¼“å†²æŒ‡é’ˆ
+	DWORD	m_Size;			//å¤§å°
+	DWORD	m_Length;		//æ•°æ®é•¿åº¦
+	DWORD	m_RefCount;		//å¼•ç”¨è®¡æ•°
+	CEZMutex	m_Mutex;		//äº’æ–¥é‡
+	SYSTEM_TIME  m_SysTime;  //ä¿å­˜åŒ…çš„å½“å‰æ—¶é—´
 	BYTE	m_Header[PKT_HDR_SIZE];
 	CPacket *m_pNext;
 
@@ -141,7 +141,7 @@ private:
 	BYTE *		m_pOriginBuffer;
 	BYTE *		m_pBuffer;
 	CEZMutex		m_Mutex;
-	PBA 		m_PBAs[32];//¹ÜÀíÃ¿ÖÖ»º³åµÄ½ÚµãÊı×é
+	PBA 		m_PBAs[32];//ç®¡ç†æ¯ç§ç¼“å†²çš„èŠ‚ç‚¹æ•°ç»„
 	int			m_nTypes;
 	int			m_nPages;
 	enum		{ NALL = 1024 };

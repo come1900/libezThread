@@ -8,7 +8,7 @@
  *
  *  Explain:
  *     -
- *      Ò»°ãÈí¼şmain (c++ °æ)
+ *      ä¸€èˆ¬è½¯ä»¶main (c++ ç‰ˆ)
  *     -
  *
  *  Update:
@@ -42,7 +42,7 @@ void signal_proc(int signo);
 /*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
 int main(int argc, char * argv[])
 {
-    // ´òÓ¡ĞÅÏ¢
+    // æ‰“å°ä¿¡æ¯
     printf("main(%d,", argc);
     for(int i = 0; i < argc; i++)
     {
@@ -50,7 +50,7 @@ int main(int argc, char * argv[])
     }
     printf(")\n");
     
-#if 0 // »¹ÓĞĞ©ÅäºÏÎÊÌâ£¬ Ò²ÎŞ±ØÒª£¬Ôİ²»×÷Îªdaemon
+#if 0 // è¿˜æœ‰äº›é…åˆé—®é¢˜ï¼Œ ä¹Ÿæ— å¿…è¦ï¼Œæš‚ä¸ä½œä¸ºdaemon
     char *pRunMode = argc>1?argv[1]:(char *)"-s";
 
     if (strcmp(pRunMode, "-d")==0)
@@ -70,14 +70,14 @@ int main(int argc, char * argv[])
     signal(SIGQUIT, signal_proc);
     signal(SIGINT, signal_proc);
 	
-    // ³õÊ¼»¯
+    // åˆå§‹åŒ–
     g_Solar.Initialize(argc, argv);
     // just exa
     //g_SimpleThread.Start();
     g_LocalConsole.Start();
 
-    // ×îºóµÄµ÷ÓÃ£¬
-    // Íê³ÉÒ»Ğ©ÀıĞĞÎ¬»¤ºÍ×èÈûÖ®ÓÃ
+    // æœ€åçš„è°ƒç”¨ï¼Œ
+    // å®Œæˆä¸€äº›ä¾‹è¡Œç»´æŠ¤å’Œé˜»å¡ä¹‹ç”¨
     g_Solar.Done();
 
     return 0;

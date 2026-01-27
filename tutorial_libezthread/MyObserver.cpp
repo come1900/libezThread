@@ -8,15 +8,15 @@
  *
  *  Explain:
  *     -
- *          ÓÃ×Ô¶¨ÒåµÄĞÅºÅ¡¢²ÛÊµÏÖ¹Û²ìÕßÄ£Ê½£»Í¬Ê±Ê¾ÀıÁËÏûÏ¢·¢ËÍºÍ½ÓÊÕ
- *          CProducers -- Ö÷¶¯¶ÔÏó
- *          CObserver  -- ¹Û²ì¶ÔÏó
- *          CConsumers -- ÏûÏ¢ÊÕÈ¡¶ÔÏó
+ *          ç”¨è‡ªå®šä¹‰çš„ä¿¡å·ã€æ§½å®ç°è§‚å¯Ÿè€…æ¨¡å¼ï¼›åŒæ—¶ç¤ºä¾‹äº†æ¶ˆæ¯å‘é€å’Œæ¥æ”¶
+ *          CProducers -- ä¸»åŠ¨å¯¹è±¡
+ *          CObserver  -- è§‚å¯Ÿå¯¹è±¡
+ *          CConsumers -- æ¶ˆæ¯æ”¶å–å¯¹è±¡
  *     -
  *
  *  Update:
  *     2013-02-17 01:52:58  Create
- *     2013-03-13 9:13:20   ¼ÓÈë¹Û²ìÕß¶ÔÏó
+ *     2013-03-13 9:13:20   åŠ å…¥è§‚å¯Ÿè€…å¯¹è±¡
  */
 /*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
 
@@ -53,7 +53,7 @@ private:
 
     CEZMutex m_MutexSigBuffer;
 
-    //¼ÆÊı
+    //è®¡æ•°
     int				m_iUser;
 };
 
@@ -104,9 +104,9 @@ int main(int argc, char* argv[])
     int iRet = 0;
 
     g_TimerManager.Start();
-    g_ThreadManager.RegisterMainThread(ThreadGetID());	// ×¢²áÖ÷Ïß³Ì
+    g_ThreadManager.RegisterMainThread(ThreadGetID());	// æ³¨å†Œä¸»çº¿ç¨‹
 
-    // ÏÈÆô¶¯
+    // å…ˆå¯åŠ¨
     g_Consumers.Start();
 
     CObserver __withCallback("tom");
@@ -199,10 +199,10 @@ void CProducers::ThreadProc()
     {
         //__trip;
 
-        // ·¢ËÍÏûÏ¢ (unsigned int msg, PARAM wpa = 0, PARAM lpa = 0, unsigned int priority = 0);
+        // å‘é€æ¶ˆæ¯ (unsigned int msg, PARAM wpa = 0, PARAM lpa = 0, unsigned int priority = 0);
         g_Consumers.SendMessage(100, ii, ii-1, 0);
 
-        // »Øµ÷
+        // å›è°ƒ
         m_SigBuffer(/*HDISKREADER_CMD_FINISHED*/1, NULL, ii, time(NULL));
 
         ii++;

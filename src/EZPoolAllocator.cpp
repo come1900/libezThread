@@ -7,21 +7,21 @@
  * $Id: pool_allocator.cpp 5884 2012-05-16 09:10:18Z WuJunjie $
  *
  *  Explain:
-	1, �ο�"The C++ Programming Laguage (Special Edition)", by Bjarne Stroustrup 
+	1, 参考"The C++ Programming Laguage (Special Edition)", by Bjarne Stroustrup 
 
-	2, ֻ֧��list����, ��Ϊlist����ÿ��ֻ������ͷ�һ��һ�ֹ��Ľڵ�. ����deque, ��Ԫ�ع��С��
-	4Kʱ, ��Ĭ�ϵ�������Ծ��൱���ڴ��, ���ڵ���4Kʱ, �������������͵Ĺ��, һ����Ԫ��ָ��, һ��
-	����ĸ������ò��÷�������, ��һ����Ԫ��, ��ʱ�ſ��Կ����ڴ��.  ��vectorʹ�óع���ʵ��ûʲô��
-	��, ���ڴ��������Ҳ�Ѿ������˶�̬���������, �����ͼʵ���ڴ��, ���������ش���.
+	2, 只支持list容器, 因为list容器每次只申请或释放一个一种规格的节点. 对于deque, 当元素规格小于
+	4K时, 其默认的申请策略就相当于内存池, 大于等于4K时, 会申请两种类型的规格, 一种是元素指针, 一次
+	申请的个数采用采用番倍策略, 另一种是元素, 这时才可以考虑内存池.  对vector使用池管理实在没什么意
+	义, 其内存管理策略也已经考虑了动态增长的情况, 如果试图实现内存池, 将付出沉重代价.
 
-	3, ����'Chunk'ʵ��, Chunk��СĬ��ֵ��1024��Ԫ�صĴ�С, ����ͨ���ӿ�setchunksize������, 
-	����ڳ�ʼ����ʱ��ֻ����һ��.
+	3, 基于'Chunk'实现, Chunk大小默认值是1024个元素的大小, 可以通过接口setchunksize来设置, 
+	最好在初始化的时候只调用一次.
 
-	4, �ݲ�֧���ڴ��ͷ�, ����������ڴ�ֻ������, �������.
+	4, 暂不支持内存释放, 所以申请的内存只会增加, 不会减少.
 
-	5, �̰߳�ȫ, ������߳̿��Թ���һ��ͬ���͵��ڴ��.
+	5, 线程安全, 即多个线程可以共享一个同类型的内存池.
 
-	6, ��Allocator���Ե�����ʹ��, ���ܴﵽ�ڴ�ع�����Ŀ��, �������ڹ̶���С���ݰ��ڴ�Ĺ���.
+	6, 此Allocator可以单独的使用, 以能达到内存池管理的目的, 比如用于固定大小数据包内存的管理.
  *
  *  Update:
  *     2011-10-13 22:00:11   Create
