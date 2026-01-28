@@ -15,7 +15,7 @@ DEF_CONFIG_FILENAME_MAIN = cfg-$(PROJECT_NAME).cfg
 DEF_CONFIG_FILENAME_MAIN_DUPLICATE = cfg-$(PROJECT_NAME).cfg.duplicate
 DEF_LOG_FILENAME = log-$(PROJECT_NAME).log
 
-include         ../../../Makefile.Defines/Makefile.Defines.$(PLATFORM)
+include         ../../../lazaru/Makefile.Defines/Makefile.Defines.$(PLATFORM)
 
 #CFLAGS =	-Wall -g -O2 -MD
 #CFLAGS += -D_DEBUG #debugme
