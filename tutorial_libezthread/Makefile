@@ -22,7 +22,7 @@ CFLAGS =	-Wall -g -O2 -MD
 CFLAGS += -D_DEBUG #debugme
 
 include         Makefile.version
-include         ../../Makefile.Defines/Makefile.Defines.$(PLATFORM)
+include         ../../lazaru/Makefile.Defines/Makefile.Defines.$(PLATFORM)
 
 CFLAGS += -I$(HOME)/libs/include/ezThread
 
