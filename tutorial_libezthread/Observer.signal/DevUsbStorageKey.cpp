@@ -13,6 +13,8 @@
  *     2012-05-16 09:09:51   Create
  */
 /*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
+#include <unistd.h> // sleep()
+
 #include "DevUsbStorageKey.h"
 
 #ifndef _DEBUG_THIS
@@ -35,10 +37,12 @@
 
 #define ARG_USED(x) (void)&x;
 
+#define trace printf
+
 PATTERN_SINGLETON_IMPLEMENT(CDevUsbStorageKey);
 /*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
 // (const char*pName, int nPriority, int nMsgQueSize = 0, DWORD dwStackSize = 0)
-CDevUsbStorageKey::CDevUsbStorageKey() :CEZThread("CDevUsbStorageKey", TP_DEFAULT), m_SigBuffer(2/*SIGNAL_NODE_NEW*/)
+CDevUsbStorageKey::CDevUsbStorageKey() :CEZThread("CDevUsbStorageKey", THREAD_PRIORITY_DEFAULT), m_SigBuffer(2/*SIGNAL_NODE_NEW*/)
 {
     m_iUser = 0;
     trace("CDevUsbStorageKey Enter--------\n");
@@ -50,11 +54,31 @@ CDevUsbStorageKey::~CDevUsbStorageKey()
 
 }
 
-BOOL CDevUsbStorageKey::Start(CEZObject * pObj, DevUsbStorageKeySignalProc_t pProc)
+EZTHREAD_BOOL CDevUsbStorageKey::Start()
+{
+    if (m_bLoop)
+    {
+        return EZTHREAD_BOOL_TRUE;
+    }
+    int ret = CreateThread();
+    return ret;
+}
+
+EZTHREAD_BOOL CDevUsbStorageKey::Stop()
+{
+    if(m_bLoop)
+    {
+        m_bLoop = EZTHREAD_BOOL_FALSE;
+        DestroyThread();
+    }
+    return EZTHREAD_BOOL_TRUE;
+}
+
+EZTHREAD_BOOL CDevUsbStorageKey::Start(CEZObject * pObj, DevUsbStorageKeySignalProc_t pProc)
 {
     CEZLock __lock(m_MutexSigBuffer);
 
-    BOOL bRet = FALSE;
+    EZTHREAD_BOOL bRet = EZTHREAD_BOOL_FALSE;
 
     if(m_SigBuffer.Attach(pObj, pProc) < 0)
     {
@@ -67,12 +91,12 @@ BOOL CDevUsbStorageKey::Start(CEZObject * pObj, DevUsbStorageKeySignalProc_t pPr
     {
         CreateThread();
 
-        bRet = TRUE;
+        bRet = EZTHREAD_BOOL_TRUE;
     }
     else
     {
 
-        bRet = TRUE;
+        bRet = EZTHREAD_BOOL_TRUE;
 
         DBG(
             __fline;
@@ -88,10 +112,10 @@ BOOL CDevUsbStorageKey::Start(CEZObject * pObj, DevUsbStorageKeySignalProc_t pPr
     return bRet;
 
 }
-BOOL CDevUsbStorageKey::Stop(CEZObject * pObj, DevUsbStorageKeySignalProc_t pProc)
+EZTHREAD_BOOL CDevUsbStorageKey::Stop(CEZObject * pObj, DevUsbStorageKeySignalProc_t pProc)
 {
     printf("CDevUsbStorageKey::Stop\n");
-    BOOL bRet = FALSE;
+    EZTHREAD_BOOL bRet = EZTHREAD_BOOL_FALSE;
 
     CEZLock __lock(m_MutexSigBuffer);
 
@@ -107,7 +131,7 @@ BOOL CDevUsbStorageKey::Stop(CEZObject * pObj, DevUsbStorageKeySignalProc_t pPro
     {
         // good
         // m_iUser--;
-        bRet = TRUE;
+        bRet = EZTHREAD_BOOL_TRUE;
     }
     else
     {
@@ -119,9 +143,9 @@ BOOL CDevUsbStorageKey::Stop(CEZObject * pObj, DevUsbStorageKeySignalProc_t pPro
     if (m_iUser==0)
     {
 
-        bRet = DestroyThread(TRUE);
+        bRet = DestroyThread(EZTHREAD_BOOL_TRUE);
 
-        if (FALSE == bRet)
+        if (EZTHREAD_BOOL_FALSE == bRet)
         {
             __trip;
             printf("DestroyThread failed.\n");

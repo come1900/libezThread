@@ -16,6 +16,9 @@
 #ifndef _EZFunUsbStorageKey_H_
 #define _EZFunUsbStorageKey_H_
 
+#include <string>
+#include "EZObject.h"
+
 class CFunUsbStorageKey : public CEZObject
 {
     std::string m_strName;

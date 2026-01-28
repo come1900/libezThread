@@ -13,8 +13,7 @@
  *     2012-05-16 09:09:51   Create
  */
 /*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
-#include "../../Device/DevUsbStorageKey.h"
-
+#include "DevUsbStorageKey.h"
 #include "FunUsbStorageKey.h"
 
 #ifndef _DEBUG_THIS
@@ -49,7 +48,7 @@ CFunUsbStorageKey::~CFunUsbStorageKey()
 void CFunUsbStorageKey::OnDownload(int iCMD, int *pPacket, int iCh, time_t time)
 {
     __fline;
-    printf(" %s CALLBACK - OnDownload: %d, 0x%0x, %d, %ld\n", m_strName.c_str(), iCMD, (unsigned int)pPacket, iCh, time);
+    printf(" %s CALLBACK - OnDownload: %d, %p, %d, %ld\n", m_strName.c_str(), iCMD, (void*)pPacket, iCh, time);
 }
 
 void CFunUsbStorageKey::Start()

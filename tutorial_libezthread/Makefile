@@ -15,14 +15,16 @@ DIFF_VERSION =	0.9
 DIST =		Thread \
 			ThreadMsg \
 			SemaphoreMutexLock	\
-			Observer \
 			MyObserver
+
+# need libsigc++
+# DIST =		Observer
+
 
 CFLAGS =	-Wall -g -O2 -MD
 CFLAGS += -D_DEBUG #debugme
 
-include         Makefile.version
-include         ../../lazaru/Makefile.Defines/Makefile.Defines.$(PLATFORM)
+include         ../../Makefile.Defines/Makefile.Defines.$(PLATFORM)
 
 CFLAGS += -I$(HOME)/libs/include/ezThread
 
@@ -30,6 +32,7 @@ CFLAGS += -I$(HOME)/libs/include/ezThread
 CFLAGS += -I$(HOME)/libs/libsigc++-$(PLATFORM)/lib/sigc++-2.0/include
 CFLAGS += -I$(HOME)/libs/libsigc++-$(PLATFORM)/include/sigc++-2.0
 
+CLEAN_FILES = $(DIST) *.o *.gdb *.d *.cfbk *.tgz
 CLEAN_FILES += *actual* *rewrite* a.txt
 
 #特殊功能区
@@ -56,7 +59,18 @@ MyObserver:MyObserver.o
 	
 FILES =		*.h *.cpp Makefile*
 
+.c.o:
+	$(CC) -c $(CFLAGS) $< -o $@
+
+.cpp.o:
+	$(CPP) -c $(CFLAGS) $< -o $@
+
+all: $(DIST)
+
 tar:	clean
 		tar -czf $(DIST).tgz $(FILES)
+
+clean: 
+	rm -f $(CLEAN_FILES)
 
 -include	*.d

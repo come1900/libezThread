@@ -29,11 +29,11 @@ public:
     // cmd, packet, ch, user
     typedef DevUsbStorageKeySignal_t::SigProc DevUsbStorageKeySignalProc_t;
 
-    BOOL Start();
-    BOOL Stop();
+    EZTHREAD_BOOL Start();
+    EZTHREAD_BOOL Stop();
 
-    BOOL Start(CEZObject * pObj, DevUsbStorageKeySignalProc_t pProc);
-    BOOL Stop(CEZObject * pObj, DevUsbStorageKeySignalProc_t pProc);
+    EZTHREAD_BOOL Start(CEZObject * pObj, DevUsbStorageKeySignalProc_t pProc);
+    EZTHREAD_BOOL Stop(CEZObject * pObj, DevUsbStorageKeySignalProc_t pProc);
 
     void ThreadProc();
 
